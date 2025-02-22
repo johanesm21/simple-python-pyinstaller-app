@@ -34,7 +34,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'pwd; whoami; sleep 500000'
+                // sh 'pwd; whoami; sleep 500000'
                 sh 'pyinstaller --onefile sources/add2vals.py'
             }
             post {
