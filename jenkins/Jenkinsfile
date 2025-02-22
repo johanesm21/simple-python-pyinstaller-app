@@ -29,7 +29,8 @@ pipeline {
         stage('Deliver') {
             agent {
                 docker {
-                    image 'mayankfawkes/pyinstaller:1.0.0-py3.8-amd64'
+                    image 'cdrx/pyinstaller:python2'
+                    args '-u 0:0'
                 }
             }
             steps {
