@@ -31,21 +31,6 @@ pipeline {
                 input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed'
             }
         }
-        stage('Compile') {
-            agent {
-                docker {
-                    image 'python:2-alpine'
-                }
-            }
-            steps {
-                sh 'python -m py_compile sources/add2vals.py sources/calc.py'
-            }
-            post {
-                success {
-                    archiveArtifacts 'add2vals'
-                }
-            }
-        }
         stage('Deploy') {
             agent {
                 docker {
@@ -53,7 +38,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'python add2vals'
+                sh 'python sources/add2vals.py'
                 // add sleep for 60 seconds
                 sh 'sleep'
             }
