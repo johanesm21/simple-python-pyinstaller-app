@@ -41,7 +41,7 @@ pipeline {
                 // example value 1 and 2 in deploy
                 sh 'python sources/add2vals.py 1 2'
                 // add sleep for 60 seconds
-                sh 'sleep'
+                sh 'sleep 60'
             }
         }
     }
