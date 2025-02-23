@@ -42,7 +42,7 @@ pipeline {
             }
             post {
                 success {
-                    archiveArtifacts 'dist/add2vals'
+                    archiveArtifacts 'add2vals'
                 }
             }
         }
@@ -53,7 +53,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'python dist/add2vals'
+                sh 'python add2vals'
                 // add sleep for 60 seconds
                 sh 'sleep'
             }
