@@ -9,7 +9,6 @@ pipeline {
             }
             steps {
                 sh 'python -m py_compile sources/add2vals.py sources/calc.py'
-                sh 'sleep 120'
             }
         }
         stage('Test') {
@@ -32,21 +31,32 @@ pipeline {
                 input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed'
             }
         }
-        // stage('Deploy') {
-        //     agent {
-        //         docker {
-        //             image 'python:2-alpine'
-        //         }
-        //     }
-        //     steps {
-        //         sh 'pyinstaller --onefile sources/add2vals.py'
-        //         sh 'sleep 60'
-        //     }
-        //     post {
-        //         success {
-        //             archiveArtifacts 'dist/add2vals'
-        //         }
-        //     }
-        // }
+        stage('Compile') {
+            agent {
+                docker {
+                    image 'python:2-alpine'
+                }
+            }
+            steps {
+                sh 'python -m py_compile sources/add2vals.py sources/calc.py'
+            }
+            post {
+                success {
+                    archiveArtifacts 'dist/add2vals'
+                }
+            }
+        }
+        stage('Deploy') {
+            agent {
+                docker {
+                    image 'python:2-alpine'
+                }
+            }
+            steps {
+                sh 'python dist/add2vals'
+                // add sleep for 60 seconds
+                sh 'sleep'
+            }
+        }
     }
 }
